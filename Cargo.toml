@@ -2,6 +2,14 @@
 name = "yaambo"
 version = "1.0.0"
 edition = "2021"
+license = "MIT"
+description = "crate for concurrent skip lists"
+repository = "https://github.com/GeorgeSaussy/yaambo"
+readme = "README.md"
+keywords = ["skip-list"]
+categories = ["concurrency", "data-structures"]
 
+# TODO(OMEGA-1333): Add "homepage" and "documentation" fields
+# that link to georgesaussy.com.
 
 [dependencies]
