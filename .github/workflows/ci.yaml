@@ -1,0 +1,46 @@
+on: pull_request
+name: Fossil CI
+jobs:
+  test:
+    name: Fossil Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@v2
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Run Tests with Cargo
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+  lints:
+    name: Check Formatting and Clippy Lints
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@v2
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+      - name: Format with Cargo
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+      - name: Check Lints with Clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: -- -D warnings
+      - name: Run clippy on tests
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --tests -- -D warnings
